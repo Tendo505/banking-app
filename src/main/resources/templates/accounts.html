@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Accounts - SecureBank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">SecureBank</div>
+        <div class="navbar-menu">
+            <a href="/dashboard" class="navbar-item">Dashboard</a>
+            <a href="/accounts" class="navbar-item">Accounts</a>
+            <span class="navbar-item">Welcome, <span th:text="${user.fullName}"></span></span>
+            <a href="/logout" class="navbar-item">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>My Accounts</h1>
+
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <a href="/accounts/create" class="btn btn-primary">Create New Account</a>
+
+        <div class="accounts-table" th:if="${accounts.size() > 0}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Account Number</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="account : ${accounts}">
+                        <td th:text="${account.accountNumber}"></td>
+                        <td th:text="${account.accountType}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}"></td>
+                        <td th:text="${#temporals.format(account.createdAt, 'MM/dd/yyyy')}"></td>
+                        <td>
+                            <a th:href="@{/accounts/{id}(id=${account.id})}" class="btn btn-small">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${accounts.size() == 0}" class="empty-state">
+            <p>You have no accounts yet. <a href="/accounts/create">Create one now</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SecureBank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

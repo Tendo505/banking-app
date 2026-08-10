@@ -1,0 +1,29 @@
+# Build output
+target/
+*.class
+*.log
+
+# IDE and operating-system files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment, credentials, and local data
+.env
+.env.*
+application-local.properties
+application-secrets.properties
+*service-account*.json
+*.jks
+*.keystore
+*.pem
+*.p12
+*.db
+*.sqlite
+*.sqlite3

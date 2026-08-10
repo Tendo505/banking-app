@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - SecureBank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">SecureBank</div>
+        <div class="navbar-menu">
+            <a href="/dashboard" class="navbar-item">Dashboard</a>
+            <a href="/accounts" class="navbar-item">Accounts</a>
+            <a href="/logout" class="navbar-item">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Account Details</h1>
+
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="account-details-box">
+            <h2 th:text="${account.accountType} + ' Account'"></h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="label">Account Number:</span>
+                    <span class="value" th:text="${account.accountNumber}"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Balance:</span>
+                    <span class="value amount" th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Currency:</span>
+                    <span class="value" th:text="${account.currency}"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Created:</span>
+                    <span class="value" th:text="${#temporals.format(account.createdAt, 'MM/dd/yyyy HH:mm')}"></span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a th:href="@{/transactions/deposit/{id}(id=${account.id})}" class="btn btn-primary">Deposit</a>
+                <a th:href="@{/transactions/withdraw/{id}(id=${account.id})}" class="btn btn-primary">Withdraw</a>
+                <a th:href="@{/transactions/transfer/{id}(id=${account.id})}" class="btn btn-primary">Transfer</a>
+            </div>
+        </div>
+
+        <h2>Recent Transactions</h2>
+        <div class="transactions-table" th:if="${transactions.size() > 0}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaction : ${transactions}">
+                        <td th:text="${#temporals.format(transaction.transactionDate, 'MM/dd/yyyy HH:mm')}"></td>
+                        <td th:text="${transaction.transactionType}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(transaction.amount, 1, 2)}"></td>
+                        <td th:text="${'$' + #numbers.formatDecimal(transaction.balanceAfter, 1, 2)}"></td>
+                        <td th:text="${transaction.description}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${transactions.size() == 0}" class="empty-state">
+            <p>No transactions yet for this account.</p>
+        </div>
+
+        <p><a href="/accounts">Back to Accounts</a></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SecureBank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

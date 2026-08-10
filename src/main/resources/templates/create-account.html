@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - SecureBank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">SecureBank</div>
+        <div class="navbar-menu">
+            <a href="/dashboard" class="navbar-item">Dashboard</a>
+            <a href="/accounts" class="navbar-item">Accounts</a>
+            <a href="/logout" class="navbar-item">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-box">
+            <h2>Create New Account</h2>
+
+            <form th:action="@{/accounts/create}" method="post">
+                <div class="form-group">
+                    <label for="accountType">Account Type:</label>
+                    <select id="accountType" name="accountType" required class="form-control">
+                        <option value="">Select Account Type</option>
+                        <option value="Savings">Savings Account</option>
+                        <option value="Checking">Checking Account</option>
+                        <option value="Money Market">Money Market Account</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+
+            <p><a href="/accounts">Back to Accounts</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SecureBank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

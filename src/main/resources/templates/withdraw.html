@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - SecureBank</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">SecureBank</div>
+        <div class="navbar-menu">
+            <a href="/dashboard" class="navbar-item">Dashboard</a>
+            <a href="/accounts" class="navbar-item">Accounts</a>
+            <a href="/logout" class="navbar-item">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-box">
+            <h2>Withdraw Funds</h2>
+
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+            <p class="account-info">
+                Account: <strong th:text="${account.accountNumber}"></strong><br>
+                Available Balance: <strong th:text="${'$' + #numbers.formatDecimal(account.balance, 1, 2)}"></strong>
+            </p>
+
+            <form th:action="@{/transactions/withdraw}" method="post">
+                <input type="hidden" name="accountId" th:value="${accountId}">
+
+                <div class="form-group">
+                    <label for="amount">Withdrawal Amount:</label>
+                    <input type="number" id="amount" name="amount" step="0.01" min="0.01" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description (Optional):</label>
+                    <input type="text" id="description" name="description" class="form-control" placeholder="e.g., ATM Withdrawal, Bill Payment">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Withdraw</button>
+            </form>
+
+            <p><a th:href="@{/accounts/{id}(id=${accountId})}">Back to Account</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SecureBank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

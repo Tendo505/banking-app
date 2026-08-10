@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Banking - Welcome</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">SecureBank</div>
+        <div class="navbar-menu">
+            <a href="/auth/login" class="navbar-item">Login</a>
+            <a href="/auth/register" class="navbar-item">Register</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Welcome to SecureBank</h1>
+            <p>Your Trusted Banking Partner</p>
+            <div class="hero-buttons">
+                <a href="/auth/login" class="btn btn-primary">Login</a>
+                <a href="/auth/register" class="btn btn-secondary">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <h3>Secure Transactions</h3>
+            <p>Bank-level security for all your transactions</p>
+        </div>
+        <div class="feature-card">
+            <h3>Easy Money Transfer</h3>
+            <p>Transfer money between accounts with ease</p>
+        </div>
+        <div class="feature-card">
+            <h3>Transaction History</h3>
+            <p>Keep track of all your banking activities</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SecureBank. All rights reserved.</p>
+    </footer>
+</body>
+</html>
